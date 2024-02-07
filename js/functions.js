@@ -14,11 +14,10 @@ function checkPalindrome(string) {
 
 
 // Тест функции
-/*
-console.log(checkPalindrome('Довод'));
-console.log(checkPalindrome('Не довод'));
-console.log(checkPalindrome('А роза упала на лапу Азора'));
-console.log(checkPalindrome('Лёша на полке клопа нашёл ')); */
+checkPalindrome('Довод');
+checkPalindrome('Не довод');
+checkPalindrome('А роза упала на лапу Азора');
+checkPalindrome('Лёша на полке клопа нашёл ');
 
 
 // Функция получения чисел из строки
@@ -37,9 +36,9 @@ function getNumber (value){
 }
 
 // Тест функции
-/*
-console.log(getNumber(1234));
-console.log(getNumber('1 лук, 2,5 стакана')); */
+
+getNumber(1234);
+getNumber('1 лук, 2,5 стакана');
 
 // Функция вставки символов
 
@@ -62,17 +61,17 @@ function changeStroke (string, minLength, addPart){
   return result;
 }
 // Тест функции
-/*
-console.log(changeStroke('r', 2, 'o'));
-console.log(changeStroke('1', 5, '2'));
-console.log(changeStroke('qwerty', 4, 'a'));
-console.log(changeStroke('qw', 4, 'asgdf'));
-console.log(changeStroke('w', 4, 'as')); */
+
+changeStroke('r', 2, 'o');
+changeStroke('1', 5, '2');
+changeStroke('qwerty', 4, 'a');
+changeStroke('qw', 4, 'asgdf');
+changeStroke('w', 4, 'as');
 
 //Функия длины строки
 
 const checkLength = (string, length) => string.length <= length;
 
-//console.log(checkLength('123456789',5))
+checkLength('123456789',5);
 
 
