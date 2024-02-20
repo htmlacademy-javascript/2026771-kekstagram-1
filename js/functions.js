@@ -42,31 +42,32 @@ getNumber('1 лук, 2,5 стакана');
 
 // Функция вставки символов
 
-function changeStroke (string, minLength, addPart){
-  let result = string.toString();
-  if (addPart.length > minLength) {
-    result = addPart.slice(0, minLength - string.length) + string;
-  } else if (string.length > minLength){
-    result = string;
-  } else if (string.length <= minLength) {
-    for (let i = 1; i <= minLength - string.length ; i++){
-      result = addPart + result;
+const transformString = function(string, reqLength, addPart){
+  let cutSymbol = '';
+  const strLen = string.length;
+  const prtLen = addPart.length;
+  for (let i = 0; cutSymbol.length < reqLength - strLen; i++){
+    const a = addPart[i];
+    if (reqLength - strLen % prtLen && prtLen < reqLength){
+      return addPart.slice(0, (reqLength - strLen) % prtLen) +
+           addPart.repeat(parseInt((reqLength - strLen) / prtLen, 10)) + string;
     }
-  } else if ((minLength - string.length) % addPart.length) {
-    for (let i = 1; result.length !== minLength; i++){
-      result = addPart[i] + string + result;
+    if (typeof a === 'undefined'){
+      addPart = addPart[i - 1] + addPart;
     }
+    cutSymbol = cutSymbol + addPart[i];
   }
+  string = cutSymbol + string;
+  return string;
+};
 
-  return result;
-}
 // Тест функции
 
-changeStroke('r', 2, 'o');
-changeStroke('1', 5, '2');
-changeStroke('qwerty', 4, 'a');
-changeStroke('qw', 4, 'asgdf');
-changeStroke('w', 4, 'as');
+transformString('r', 2, 'o');
+transformString('1', 5, '2');
+transformString('qwerty', 4, 'a');
+transformString('qw', 4, 'asgdf');
+transformString('w', 4, 'as');
 
 //Функия длины строки
 
