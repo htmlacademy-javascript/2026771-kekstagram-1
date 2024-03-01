@@ -1,6 +1,6 @@
 import { getRandomNumber, getArrayElement, createCounter } from './utilise.js';
 
-const ARRAY_QUANTITY = 25;
+const FOTO_QUANTITY = 25;
 const AVATAR_NUMBER = 6;
 const LIKES_MIN_QUANTITY = 15;
 const LIKES_MAX_QUANTITY = 200;
@@ -72,7 +72,7 @@ const createObjectComment = () =>
     name: getArrayElement(NAMES_COMMENTERS)
   });
 
-const createObjects = () => ({
+const createObjectFoto = () => ({
   id: getUniqeIdObjects(),
   url: `photos/${getUniqeIdFoto()}.jpg`,
   description: getArrayElement(DESCRIPTION_VALUES),
@@ -80,7 +80,6 @@ const createObjects = () => ({
   comments: createObjectComment()
 });
 
-const createArray = () => Array.from({length: ARRAY_QUANTITY}, createObjects);
+const createArrayFoto = () => Array.from({length: FOTO_QUANTITY}, createObjectFoto);
 
-export { createArray };
-
+export { createArrayFoto };
