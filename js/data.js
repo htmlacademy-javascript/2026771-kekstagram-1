@@ -71,13 +71,14 @@ const createObjectComment = () =>
     message: getArrayElement(COMMENTS_VALUES),
     name: getArrayElement(NAMES_COMMENTERS)
   });
+const createCounterComments = () => Array.from({length: getRandomNumber(1, 5) }, createObjectComment);
 
 const createObjectFoto = () => ({
   id: getUniqeIdObjects(),
   url: `photos/${getUniqeIdFoto()}.jpg`,
   description: getArrayElement(DESCRIPTION_VALUES),
   likes: getRandomNumber(LIKES_MIN_QUANTITY, LIKES_MAX_QUANTITY),
-  comments: createObjectComment()
+  comments: createCounterComments()
 });
 
 const createArrayFoto = () => Array.from({length: FOTO_QUANTITY}, createObjectFoto);
