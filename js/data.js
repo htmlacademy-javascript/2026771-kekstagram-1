@@ -4,16 +4,23 @@ const FOTO_QUANTITY = 25;
 const AVATAR_NUMBER = 6;
 const LIKES_MIN_QUANTITY = 15;
 const LIKES_MAX_QUANTITY = 200;
+const COMMENTS_MAX_QUANTITY = 5;
 
-const COMMENTS_VALUES = [
+const comments = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
   'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
-  'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!' ];
+  'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
+  '++',
+  '+++++',
+  'Скиньте геолокацию!',
+  'Выезжаю!',
+  'Кто-то купил новый Айфон?',
+  'Да у тебя дар, находить такие кадрыю', ];
 
-const NAMES_COMMENTERS = [
+const namesCommenters = [
   'Павел',
   'Пётр',
   'Ольга',
@@ -32,7 +39,7 @@ const NAMES_COMMENTERS = [
   'Nguen',
   'Jhon'];
 
-const DESCRIPTION_VALUES = [
+const descriptions = [
   'Образование создаёт разницу между людьми. Джон Локк',
   'Единственным критерием истины является опыт. Леонардо да Винчи',
   'Блаженство тела состоит в здоровье, блаженство ума — в знании. Фалес Милетский',
@@ -64,23 +71,23 @@ const getUniqeIdObjects = createCounter();
 const getUniqeIdFoto = createCounter();
 const getUniqeIdComments = createCounter();
 
-const createObjectComment = () =>
+const CreateObjectComment = () =>
   ({
     id: getUniqeIdComments(),
     avatar: `img/avatar-${getRandomNumber(1, AVATAR_NUMBER)}.svg`,
-    message: getArrayElement(COMMENTS_VALUES),
-    name: getArrayElement(NAMES_COMMENTERS)
+    message: getArrayElement(comments),
+    name: getArrayElement(namesCommenters)
   });
-const createCounterComments = () => Array.from({length: getRandomNumber(1, 5) }, createObjectComment);
+const createCounterComments = () => Array.from({length: getRandomNumber(1, COMMENTS_MAX_QUANTITY) }, CreateObjectComment);
 
-const createObjectFoto = () => ({
+const CreateObjectFoto = () => ({
   id: getUniqeIdObjects(),
   url: `photos/${getUniqeIdFoto()}.jpg`,
-  description: getArrayElement(DESCRIPTION_VALUES),
+  description: getArrayElement(descriptions),
   likes: getRandomNumber(LIKES_MIN_QUANTITY, LIKES_MAX_QUANTITY),
   comments: createCounterComments()
 });
 
-const createArrayFoto = () => Array.from({length: FOTO_QUANTITY}, createObjectFoto);
+const createArrayFoto = () => Array.from({length: FOTO_QUANTITY}, CreateObjectFoto);
 
 export { createArrayFoto };
