@@ -14,4 +14,6 @@ const createCounter = () =>{
   };
 };
 
-export { getRandomNumber, getArrayElement, createCounter };
+const isEscape = (evt) => evt.key === 'Escape';
+
+export { getRandomNumber, getArrayElement, createCounter, isEscape };

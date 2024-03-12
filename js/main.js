@@ -1,4 +1,4 @@
 import { createArrayFoto } from './data.js';
-import './fotocard.js';
+import { selectingFullscreenFoto } from './gallary.js';
 
-createArrayFoto();
+selectingFullscreenFoto(createArrayFoto());
