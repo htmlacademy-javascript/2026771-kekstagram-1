@@ -4,7 +4,7 @@ const FOTO_QUANTITY = 25;
 const AVATAR_NUMBER = 6;
 const LIKES_MIN_QUANTITY = 15;
 const LIKES_MAX_QUANTITY = 200;
-const COMMENTS_MAX_QUANTITY = 5;
+const COMMENTS_MAX_QUANTITY = 15;
 
 const comments = [
   'Всё отлично!',
@@ -18,7 +18,7 @@ const comments = [
   'Скиньте геолокацию!',
   'Выезжаю!',
   'Кто-то купил новый Айфон?',
-  'Да у тебя дар, находить такие кадрыю', ];
+  'Да у тебя дар, находить такие кадры', ];
 
 const namesCommenters = [
   'Павел',
