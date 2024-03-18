@@ -4,19 +4,20 @@ const fullscreenFoto = document.querySelector('.big-picture');
 const addresFotoBlock = fullscreenFoto.querySelector('.big-picture__img');
 const addresFoto = addresFotoBlock.querySelector('img');
 const likesAmount = fullscreenFoto.querySelector('.likes-count');
-const commentsAmount = fullscreenFoto.querySelector('.comments-count');
 const commentsBlock = fullscreenFoto.querySelector('.social__comments');
 const fotoDescription = fullscreenFoto.querySelector('.social__caption');
 const closeButton = fullscreenFoto.querySelector('.big-picture__cancel');
 const bodyElement = document.querySelector('body');
-const socialCommentCount = fullscreenFoto.querySelector('.social__comment-count ');
-const commentsLoader = fullscreenFoto.querySelector('.comments-loader');
+const socialBlock = document.querySelector('.big-picture__social');
+const counterComments = socialBlock.querySelector('.social__comment-count');
+const buttonCommentsLoader = socialBlock.querySelector('.comments-loader');
 
 const createFullscreenComment = ({avatar, name, message}) => {
   const li = document.createElement('li');
   const img = document.createElement('img');
   const p = document.createElement('p');
   li.classList.add('social__comment');
+  li.classList.add('hidden');
   img.classList.add('social__picture');
   img.src = avatar;
   img.alt = name;
@@ -33,34 +34,62 @@ const createFullscreenComments = (comment) => {
   const deleteContent = commentsBlock.querySelectorAll('.social__comment');
   deleteContent.forEach((element) => element.remove());
   const fragment = document.createDocumentFragment();
-  comment.forEach((element) => {
-    const commentElement = createFullscreenComment(element);
-    fragment.append(commentElement);
-  });
+  const commentElement = comment.map((element) => createFullscreenComment(element));
+  commentElement.map((element) => fragment.append(element));
   commentsBlock.append(fragment);
 };
+
+let commentPortion = 5;
+
+const getPortionComments = () => {
+  const newLiElement = commentsBlock.querySelectorAll('.social__comment');
+  for(let i = 0; i < commentPortion; i++) {
+    if (newLiElement.item(i) !== null) {
+      newLiElement[i].classList.remove('hidden');
+      counterComments.innerHTML = '';
+      counterComments.innerHTML = `${i + 1} из <span class="comments-count">${newLiElement.length}</span> комментариев`;
+      if (newLiElement.length <= 5) {
+        buttonCommentsLoader.classList.add('hidden');
+      }
+      if (i === newLiElement.length - 1) {
+        buttonCommentsLoader.classList.add('hidden');
+      }
+    } else {
+      buttonCommentsLoader.disabled = true;
+    }
+  }
+  commentPortion += 5;
+};
+
+buttonCommentsLoader.addEventListener('click', () => {
+  getPortionComments();
+});
 
 const closeUserModal = () => {
   fullscreenFoto.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
+  document.removeEventListener('keydown', onDocumentKeydown);
+  commentPortion = 5;
+  buttonCommentsLoader.disabled = false;
+  buttonCommentsLoader.textContent = 'Загрузить еще';
+  buttonCommentsLoader.style.color = '';
 };
 
-const onDocumentKeydown = (evt) => {
+function onDocumentKeydown (evt) {
   if (isEscape(evt)) {
     evt.preventDefault();
     closeUserModal();
   }
-};
+}
 
 closeButton.addEventListener('click', () => {
   closeUserModal();
 });
 
 
-const createFullscreenFotoData = ({url, likes, comments, description}) => {
+const createFullscreenFotoData = ({url, likes, description}) => {
   addresFoto.src = url;
   likesAmount.textContent = likes;
-  commentsAmount.textContent = comments.length;
   fotoDescription.textContent = description;
 };
 
@@ -68,10 +97,12 @@ const createFullscreenFoto = (findedFotoData) => {
   fullscreenFoto.classList.remove('hidden');
   bodyElement.classList.add('modal-open');
   createFullscreenFotoData(findedFotoData);
-  socialCommentCount.classList.add('hidden');
-  commentsLoader.classList.add('hidden');
   document.addEventListener('keydown', onDocumentKeydown);
+  counterComments.classList.remove('hidden');
+  buttonCommentsLoader.classList.remove('hidden');
   createFullscreenComments(findedFotoData.comments);
+  getPortionComments();
 };
 
 export { createFullscreenFoto };
+
