@@ -27,6 +27,7 @@ const createFullscreenComment = ({avatar, name, message}) => {
   p.textContent = message;
   li.appendChild(img);
   li.appendChild(p);
+  img.style.userSelect = 'none';
   return li;
 };
 
@@ -40,10 +41,11 @@ const createFullscreenComments = (comment) => {
 };
 
 let commentPortion = 5;
-
+let startIndx = 0;
 const getPortionComments = () => {
   const newLiElement = commentsBlock.querySelectorAll('.social__comment');
-  for(let i = 0; i < commentPortion; i++) {
+  const treshold = commentPortion + startIndx > newLiElement.length ? newLiElement.length : commentPortion + startIndx;
+  for(let i = startIndx; i < treshold; i++) {
     if (newLiElement.item(i) !== null) {
       newLiElement[i].classList.remove('hidden');
       counterComments.innerHTML = '';
@@ -58,7 +60,7 @@ const getPortionComments = () => {
       buttonCommentsLoader.disabled = true;
     }
   }
-  commentPortion += 5;
+  startIndx += commentPortion;
 };
 
 buttonCommentsLoader.addEventListener('click', () => {
@@ -70,6 +72,7 @@ const closeUserModal = () => {
   bodyElement.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
   commentPortion = 5;
+  startIndx = 0;
   buttonCommentsLoader.disabled = false;
   buttonCommentsLoader.textContent = 'Загрузить еще';
   buttonCommentsLoader.style.color = '';
@@ -86,11 +89,11 @@ closeButton.addEventListener('click', () => {
   closeUserModal();
 });
 
-
 const createFullscreenFotoData = ({url, likes, description}) => {
   addresFoto.src = url;
   likesAmount.textContent = likes;
   fotoDescription.textContent = description;
+  addresFoto.style.userSelect = 'none';
 };
 
 const createFullscreenFoto = (findedFotoData) => {
