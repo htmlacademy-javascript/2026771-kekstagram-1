@@ -7,6 +7,7 @@ const selectingFullscreenFoto = (createdData) => {
   fullscreenFotoBlock.addEventListener ('click', (evt) =>{
     const targetPicture = evt.target.closest('[data-new-template-id]');
     if (targetPicture){
+      evt.preventDefault();
       const findPicture = createdData.find((element) =>
         element.id === Number(targetPicture.dataset.newTemplateId)
       );

@@ -10,6 +10,7 @@ const createFotoCard = ({url, likes, comments, id}) => {
   newTemplate.querySelector('.picture__likes').textContent = likes;
   newTemplate.querySelector('.picture__comments').textContent = comments.length;
   newTemplate.dataset.newTemplateId = id;
+  newTemplate.querySelector('.picture__img').style.userSelect = 'none';
   return newTemplate;
 };
 
