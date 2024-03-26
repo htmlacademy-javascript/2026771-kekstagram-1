@@ -1,4 +1,6 @@
 import { isEscape } from './utilise.js';
+import { updateScale, addEventScale } from './scale-foto.js';
+import { changeEffect, updateChangeEffect } from './effects-foto.js';
 
 const hashtagAmount = 5;
 const inputFile = document.querySelector('#upload-file');
@@ -100,7 +102,7 @@ pristine.addValidator(
 pristine.addValidator(
   userHashtag,
   isHashtagTrueLength,
-  'Длина хэштега превышает 20 символов',
+  'Длина хэштега не должна превышать 20 символов',
 );
 
 pristine.addValidator(
@@ -131,12 +133,14 @@ pristine.addValidator(
 pristine.addValidator(
   userHashtag,
   isHashtagNotOneSymbol,
-  'Добавьте символы',
+  'Хэштег не может состоять из одного символа',
 );
 
 const openUploadModal = () => {
   imgOverlay.classList.remove('hidden');
   bodyElement.classList.add('modal-open');
+  addEventScale();
+  changeEffect();
   document.addEventListener('keydown', onDocumentKeydown);
 };
 
@@ -145,6 +149,8 @@ const closeUploadModal = () => {
   bodyElement.classList.remove('modal-open');
   pristine.reset();
   inputFile.value = null;
+  updateScale();
+  updateChangeEffect();
   document.removeEventListener('keydown', onDocumentKeydown);
 };
 
@@ -165,6 +171,7 @@ function blockButton () {
 
   if (!isValid) {
     submitButton.disabled = true;
+    document.querySelector('.form__error').style.background = 'linear-gradient(to right, rgba(255, 255, 0, 0.3), rgba(255, 0, 0, 0.3))';
   } else {
     submitButton.disabled = false;
   }
